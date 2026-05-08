@@ -10,23 +10,30 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
+        with:
+          sparse-checkout: |
+            esp32_wifi_debug.ino
+            platformio.ini
+            README.md
+            .github/workflows/build.yml
+          sparse-checkout-cone-mode: false
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      
+
       - name: Install PlatformIO
         run: pip install platformio
-      
+
       - name: Build firmware
-        run: pio run
-      
-      - name: Show firmware size
         run: |
-          echo "固件大小:"
-          ls -lh .pio/build/esp32-s3-devkitc-1/firmware.bin
-      
+          pio pkg install
+          pio run --project-dir .
+
+      - name: Show firmware
+        run: ls -lh .pio/build/esp32-s3-devkitc-1/
+
       - name: Upload firmware artifact
         uses: actions/upload-artifact@v4
         with:
