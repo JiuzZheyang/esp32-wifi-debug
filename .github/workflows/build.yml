@@ -20,18 +20,16 @@ jobs:
         run: pip install platformio
       
       - name: Build firmware
-        run: |
-          cd esp32_wifi_debug
-          pio run
+        run: pio run
       
       - name: Show firmware size
         run: |
           echo "固件大小:"
-          ls -lh esp32_wifi_debug/.pio/build/esp32-s3-devkitc-1/firmware.bin
+          ls -lh .pio/build/esp32-s3-devkitc-1/firmware.bin
       
       - name: Upload firmware artifact
         uses: actions/upload-artifact@v4
         with:
           name: esp32-s3-firmware
-          path: esp32_wifi_debug/.pio/build/esp32-s3-devkitc-1/firmware.bin
+          path: .pio/build/esp32-s3-devkitc-1/firmware.bin
           retention-days: 30
