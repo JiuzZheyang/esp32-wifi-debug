@@ -20,18 +20,18 @@ jobs:
         run: pip install platformio
       
       - name: Build firmware
-        run: pio run -d /root/.openclaw/workspace/scripts/esp32_wifi_debug
-        env:
-          PLATFORMIO_UPLOAD_SPEED: 921600
+        run: |
+          cd esp32_wifi_debug
+          pio run
       
       - name: Show firmware size
         run: |
           echo "固件大小:"
-          ls -lh /root/.openclaw/workspace/scripts/esp32_wifi_debug/.pio/build/esp32-s3-devkitc-1/firmware.bin 2>/dev/null || ls -lh .pio/build/esp32-s3-devkitc-1/firmware.bin
+          ls -lh esp32_wifi_debug/.pio/build/esp32-s3-devkitc-1/firmware.bin
       
       - name: Upload firmware artifact
         uses: actions/upload-artifact@v4
         with:
           name: esp32-s3-firmware
-          path: /root/.openclaw/workspace/scripts/esp32_wifi_debug/.pio/build/esp32-s3-devkitc-1/firmware.bin
+          path: esp32_wifi_debug/.pio/build/esp32-s3-devkitc-1/firmware.bin
           retention-days: 30
