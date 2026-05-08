@@ -187,7 +187,7 @@ void handleStatus() {
     String json = "{";
     json += "\"ip\":\"" + WiFi.localIP().toString() + "\",";
     json += "\"rssi\":" + String(WiFi.RSSI()) + ",";
-    json += "\"uptime\":" + (millis()/1000) + ",";
+    json += "\"uptime\":" + String(millis()/1000) + ",";
     json += "\"freeheap\":" + ESP.getFreeHeap();
     json += "}";
     webServer.send(200, "application/json", json);
